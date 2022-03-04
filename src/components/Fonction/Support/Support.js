@@ -16,7 +16,7 @@ const Icon = styled(Link)`
     }
 `;
 
-const SignUp = () => {
+const Support = () => {
     return (
         <>
         <Icon to='/'>Helios</Icon>
@@ -25,4 +25,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp;
+export default Support;

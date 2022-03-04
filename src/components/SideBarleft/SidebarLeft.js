@@ -49,6 +49,8 @@ const SidebarLeft = () => {
 
     const showSidebar = () => setSidebar(!sidebar);
 
+
+
   return (
     <>
         <Nav className='color'>
@@ -58,7 +60,7 @@ const SidebarLeft = () => {
             <SidebarNav sidebar={sidebar}>
                 <SidebarWrap>
                     <NavIcon to='#'>
-                        <AiIcons.AiOutlineClose onClick={showSidebar}/>
+                        <AiIcons.AiOutlineClose /*onClick={showSidebar}*//>
                     </NavIcon>
                     {SidebarData.map((item, index) => {
                         return <SubMennu item={item} key={index} />;

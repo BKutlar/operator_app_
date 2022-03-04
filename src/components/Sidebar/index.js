@@ -12,18 +12,23 @@ const Sidebar = ({isOpen, toggle}) => {
                 <SideBtnWrap>
                     <SidebarRouteAll to='/about'>About</SidebarRouteAll>
                 </SideBtnWrap>
+                <br/>
                 <SideBtnWrap>
                     <SidebarRouteHow to='/howitworks'>How it works</SidebarRouteHow>
                 </SideBtnWrap>
+                <br/>
                 <SideBtnWrap>
                 <SidebarRouteSucces to='/successstories'>Success stories</SidebarRouteSucces>
                 </SideBtnWrap>
+                <br/>
                 <SideBtnWrap>
                     <SidebarRouteService to='/services'>Help&Contact</SidebarRouteService>
                 </SideBtnWrap>
+                <br/>
                 <SideBtnWrap>
                     <SidebarRouteSignUp to='/signup'>Sign up</SidebarRouteSignUp>
                 </SideBtnWrap>
+                <br/>
                 
                     {/* <SidebarLink to='about' onClick={toggle}>About</SidebarLink> */}
                     {/* <SidebarLink to='howitworks' onClick={toggle}>How it work</SidebarLink> */}

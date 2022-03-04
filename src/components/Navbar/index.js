@@ -3,13 +3,7 @@ import {FaBars} from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import {animateScroll as scroll} from 'react-scroll';
 import { Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavBtn, NavBtnLink, NavBtnLinkAbout,} from './NavbarElement';
-import styled from 'styled-components';
-import * as FaIcons from 'react-icons/fa';
-import * as IoIcons from 'react-icons/io';
-import * as MdIcons from 'react-icons/md';
-import * as AiIcons from 'react-icons/ai';
-import {Link, Route, Router, Routes} from 'react-router-dom';
-import Overview from '../../pages/Overview';
+
 
 
 const Navbar = ({toggle}) => {

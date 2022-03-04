@@ -13,6 +13,8 @@ import ServicePage from './pages/service';
 import SignUpPage from './pages/signup';
 import CountryPage from './pages/country';
 import CityPage from './pages/city';
+import SupportPage from './pages/support';
+import ForgotPage from './pages/forgot';
 function App() {
 
  
@@ -32,6 +34,8 @@ function App() {
       <Route path='/signup' element={<SignUpPage />}/>
       <Route path='/country' element={<CountryPage />}/>
       <Route path='/city' element={<CityPage />}/>;
+      <Route path='/support' element={<SupportPage/>}/>
+      <Route path='/forgot' element={<ForgotPage/>}/>
      </Routes>
 
      
