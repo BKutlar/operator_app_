@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import './index.css';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
@@ -15,11 +15,14 @@ import CountryPage from './pages/country';
 import CityPage from './pages/city';
 import SupportPage from './pages/support';
 import ForgotPage from './pages/forgot';
+import mapboxgl from 'mapbox-gl';
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiYmt1dGxhcjAwNDEiLCJhIjoiY2t5aWdja21zMmM0czJ2bjAyNDd1Y21nNSJ9.y3KGagGUhRXB5bdI8-7Dfw';
+
 function App() {
 
- 
   return (
-    
+    <>
     <Router>
       
       <Routes>
@@ -40,7 +43,8 @@ function App() {
 
      
     </Router>
-
+    {/* <div id="aboutmap"></div> */}
+    </>
   );
 }
 

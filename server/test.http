@@ -1,0 +1,7 @@
+POST http://localhost:5000/app/signup
+Content-Type: application/json
+
+{
+    "email": "Brayan@rdiup.com",
+    "password": "rdiup"
+}

@@ -14,7 +14,7 @@ export const Nav = styled.nav`
     z-index: 10;
     
 
-    @media screen and (max-width: 960px) {
+    @media screen and (max-width: 100%) {
         transition: 0.8s all ease;
     }
 `;

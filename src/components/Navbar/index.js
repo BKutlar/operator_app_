@@ -3,7 +3,7 @@ import {FaBars} from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import {animateScroll as scroll} from 'react-scroll';
 import { Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, NavBtn, NavBtnLink, NavBtnLinkAbout,} from './NavbarElement';
-
+import Map from './NavbarMap';
 
 
 const Navbar = ({toggle}) => {
@@ -78,7 +78,7 @@ const Navbar = ({toggle}) => {
                 </NavbarContainer>
             </Nav>
             </IconContext.Provider>
-            
+            <Map />
         </>
     )
 }
