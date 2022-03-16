@@ -1,7 +1,8 @@
 const router = require('express').Router();
-const {signUpTemplateCopu} = require('express');
+const {signUpTemplateCopu} = require('../models/user');
 const bcrypt = require("bcrypt");
 const Joi = require('joi');
+const passwordComplexity = require ("joi-password-complexity")
 
 router.post("/signin", async (req, res) => {
 	try {

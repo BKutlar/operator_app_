@@ -59,12 +59,14 @@ const SignUp = () => {
     // }
     const history = useNavigate()
 
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     async function registerUser(event) {
+        // console.log('before fetch')
         event.preventDefault()
-
+        
         const response = await fetch('http://localhost:5000/api/register', {
             method: 'POST',
             headers: {
@@ -72,16 +74,22 @@ const SignUp = () => {
             },
 
             body: JSON.stringify({
+                name,
                 email, 
                 password,
             })
         })
-
+        // console.log('after fetch')
         const data = await response.json() 
-
+        console.log(data)
         if(data.status === 'ok') {
             history('/')
+        } else {
+            alert('Email already exists')
+        
         }
+ 
+        
     }
 
 
@@ -93,6 +101,12 @@ const SignUp = () => {
                         <FormContent onSubmit={registerUser}>
                             <Form >
                                 <FormH1>Sign up to your account</FormH1>
+                                <FormLabel htmlFor='for'>Name</FormLabel>
+                                <FormInput
+                                value={name}
+                                onChange={(e)=>setName(e.target.value)}
+                                type='name'
+                                placeholder='Name'/>
                                 <FormLabel htmlFor='for'>Email</FormLabel>
                                 <FormInput  
                                 value={email} 

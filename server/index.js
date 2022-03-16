@@ -22,20 +22,20 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
-const User = require('./models/user.model')
+const User = require('./models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const { schema } = require('./models/user.model')
+// const { schema } = require('./models/user.model')
 // const schema = new schema({name: String})
 
 app.use(cors())
 app.use(express.json())
 
 
-schema.path('email').validate(async (email) => {
-    const emailCount = await mongoose.models.User.countDocuments({email})
-    return !emailCount
-}, "Email already exists")
+// schema.path('email').validate(async (email) => {
+//     const emailCount = await mongoose.models.User.countDocuments({email})
+//     return !emailCount
+// }, "Email already exists")
 
 mongoose.connect('mongodb+srv://Brayan:Brayan_0401@cluster0.8jjav.mongodb.net/users_table?retryWrites=true&w=majority', ()=>console.log('Database Connected'));
 
@@ -43,13 +43,16 @@ app.post('/api/register', async (req, res) => {
     console.log(req.body)
     try{
         const newPassword = await bcrypt.hash(req.body.password, 10)
+        
         await User.create({
+            name: req.body.name,
             email: req.body.email,
             password: newPassword,
         })
         res.json({status:'ok'})
     } catch (err) {
         res.json({status: 'error', error:'Duplicate email'})
+        console.log(err)
     }
 
 })
@@ -73,6 +76,7 @@ app.post('/api/login', async (req, res) => {
     if(isPasswordValid) {
         const token = jwt.sign(
             {
+                name: user.name,
                 email: user.email
             }, 
             'secret123'

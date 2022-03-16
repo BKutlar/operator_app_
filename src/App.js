@@ -16,6 +16,7 @@ import CityPage from './pages/city';
 import SupportPage from './pages/support';
 import ForgotPage from './pages/forgot';
 import mapboxgl from 'mapbox-gl';
+import LogoutPage from './pages/deco';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmt1dGxhcjAwNDEiLCJhIjoiY2t5aWdja21zMmM0czJ2bjAyNDd1Y21nNSJ9.y3KGagGUhRXB5bdI8-7Dfw';
 
@@ -39,6 +40,7 @@ function App() {
       <Route path='/city' element={<CityPage />}/>;
       <Route path='/support' element={<SupportPage/>}/>
       <Route path='/forgot' element={<ForgotPage/>}/>
+      <Route path='/logout' element={<LogoutPage/>}/>
      </Routes>
 
      

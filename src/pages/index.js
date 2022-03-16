@@ -12,10 +12,10 @@ const Home = () => {
     const toggle = () => {
         setIsOpen(!isOpen)
     }
-
+    const user = JSON.parse(localStorage.getItem('user')) ?? {};
     return (
         <>
-            
+            <p>{user.email}</p>
             <Sidebar isOpen={isOpen} toggle={toggle}/>
             <Navbar toggle={toggle}/>
             {/* <InfoSection /> */}

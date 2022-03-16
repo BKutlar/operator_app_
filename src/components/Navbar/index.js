@@ -73,12 +73,13 @@ const Navbar = ({toggle}) => {
                         <NavBtnLinkAbout to='/successstories'>Success stories</NavBtnLinkAbout>
                         <NavBtnLinkAbout to='/services'>Help&Contact</NavBtnLinkAbout>
                         <NavBtnLinkAbout  to='/signup'>Sign Up</NavBtnLinkAbout>
+                        <NavBtnLinkAbout to='/logout'>Log out</NavBtnLinkAbout>
                         <NavBtnLink to='/signin'>Sign In</NavBtnLink>
                     </NavBtn>
                 </NavbarContainer>
             </Nav>
             </IconContext.Provider>
-            <Map />
+            {/* <Map /> */}
         </>
     )
 }

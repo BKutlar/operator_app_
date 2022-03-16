@@ -12,8 +12,10 @@ import {
     FormButton,
     Text,
 } from './SigninElement';
-import axios from 'axios';
-
+// import base64url from 'base64url';
+// import jwt_decode from 'jwt-decode';
+// import jwt from 'jsonwebtoken';
+import { decodeToken } from 'react-jwt';
 const SignIn = () => {
     // const [data, setData] = useState({email:"", password:""});
     // const [error, setError] = useState('');
@@ -58,11 +60,14 @@ const SignIn = () => {
         })
 
         const data = await response.json()
-
+        console.log(data)
         if(data.user) {
             localStorage.setItem('token', data.user)
+           const user = decodeToken(data.user);
+            localStorage.setItem('user',JSON.stringify(user))
             alert('Login successful')
             window.location.href='#'
+            
         } else {
             alert('Please check your username and password')
         }
@@ -70,6 +75,8 @@ const SignIn = () => {
         if(data.status === 'ok') {
             history('/')
         }
+
+        
     }
     return (
         <>
