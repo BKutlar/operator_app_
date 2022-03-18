@@ -79,7 +79,7 @@ const Navbar = ({toggle}) => {
                 </NavbarContainer>
             </Nav>
             </IconContext.Provider>
-            {/* <Map /> */}
+            <Map />
         </>
     )
 }
