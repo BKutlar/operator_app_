@@ -37,7 +37,7 @@ const Navbar = ({toggle}) => {
                             <Route path="/overview" element={<Overview/>}/>
                         </Routes>
                     </Router> */}
-                    <NavLogo to='/' onClick={toggleHome}>Helios</NavLogo>
+                    <NavLogo to='/' onClick={toggleHome}>Fleet Management</NavLogo>
                     <MobileIcon onClick={toggle}>
                         <FaBars />
                     </MobileIcon>
