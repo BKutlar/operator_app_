@@ -5,6 +5,7 @@ import InfoSection from '../components/InfoSection';
 import Services from '../components/Services';
 import Footer from '../components/Footer';
 import SidebarLeft from '../components/SideBarleft/SidebarLeft';
+
 const Home = () => {
 
     const [isOpen, setIsOpen] = useState(false); 
@@ -21,7 +22,6 @@ const Home = () => {
             {/* <InfoSection /> */}
             {/* <Services /> */}
             <SidebarLeft />
-            
             <Footer />
         </>
     );

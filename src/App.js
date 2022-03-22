@@ -17,11 +17,13 @@ import SupportPage from './pages/support';
 import ForgotPage from './pages/forgot';
 import mapboxgl from 'mapbox-gl';
 import LogoutPage from './pages/deco';
+import Api from './components/Api/api';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmt1dGxhcjAwNDEiLCJhIjoiY2t5aWdja21zMmM0czJ2bjAyNDd1Y21nNSJ9.y3KGagGUhRXB5bdI8-7Dfw';
 
 function App() {
 
+  
   return (
     <>
     <Router>
@@ -45,6 +47,7 @@ function App() {
 
      
     </Router>
+    {/* <Api/> */}
     {/* <div id="aboutmap"></div> */}
     </>
   );

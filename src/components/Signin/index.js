@@ -16,6 +16,7 @@ import {
 // import jwt_decode from 'jwt-decode';
 // import jwt from 'jsonwebtoken';
 import { decodeToken } from 'react-jwt';
+import {BiArrowBack} from 'react-icons/bi'
 const SignIn = () => {
     // const [data, setData] = useState({email:"", password:""});
     // const [error, setError] = useState('');
@@ -82,7 +83,7 @@ const SignIn = () => {
         <>
             <Container>
                 <FormWrap>
-                    <Icon to="/">Helios</Icon>
+                    <Icon to="/"><BiArrowBack/></Icon>
                     <FormContent>
                         <Form action="#" onSubmit={loginUser}>
                             <FormH1>Sign in to your acount</FormH1>

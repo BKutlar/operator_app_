@@ -14,7 +14,7 @@ import {
     FormButton,
     Text
 } from './SignUpElement';
-import axios from 'axios'
+import {BiArrowBack} from 'react-icons/bi'
 
 
 
@@ -97,7 +97,7 @@ const SignUp = () => {
             <>
                 <Container>
                     <FormWrap>
-                        <Icon to='/'>Helios</Icon>
+                        <Icon to='/'><BiArrowBack/></Icon>
                         <FormContent onSubmit={registerUser}>
                             <Form >
                                 <FormH1>Sign up to your account</FormH1>
