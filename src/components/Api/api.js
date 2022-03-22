@@ -9,7 +9,7 @@ class Api extends Component {
 
     componentDidMount() {
         fetch('https://api.electricitymap.org/v3/zones')
-            .then((response) => {
+            .then((response) => { 
                 return response.json()
             })
             .then((result) => {
