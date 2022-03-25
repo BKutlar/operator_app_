@@ -3,6 +3,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as IoIcons from 'react-icons/io';
 import * as AiIcons from 'react-icons/ai';
 import * as MdIcons from 'react-icons/md';
+import {FcLineChart} from 'react-icons/fc';
 
 
 export const SidebarData = [
@@ -36,4 +37,10 @@ export const SidebarData = [
         icon: <MdIcons.MdContactSupport />
         
     },
+
+    {
+        title: 'Charts',
+        path: '/chart',
+        icon: <FcLineChart/>
+    }
 ]

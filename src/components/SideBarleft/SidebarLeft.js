@@ -7,6 +7,7 @@ import * as AiIcons from 'react-icons/ai';
 import {Link} from 'react-router-dom';
 import SubMennu from './SubMenu';
 import {SidebarData} from './SidebarData';
+import {AiOutlineClose} from 'react-icons/ai'
 import './Side.css'
 
 const Nav = styled.div`
@@ -60,7 +61,7 @@ const SidebarLeft = () => {
             <SidebarNav sidebar={sidebar}>
                 <SidebarWrap>
                     <NavIcon to='#'>
-                        <AiIcons.AiOutlineClose /*onClick={showSidebar}*//>
+                        <AiOutlineClose onClick={showSidebar}/>
                     </NavIcon>
                     {SidebarData.map((item, index) => {
                         return <SubMennu item={item} key={index} />;

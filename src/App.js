@@ -14,10 +14,15 @@ import SignUpPage from './pages/signup';
 import CountryPage from './pages/country';
 import CityPage from './pages/city';
 import SupportPage from './pages/support';
+import ChartPage from './pages/chart';
 import ForgotPage from './pages/forgot';
 import mapboxgl from 'mapbox-gl';
 import LogoutPage from './pages/deco';
-import Api from './components/Api/api';
+// import { LineGraph } from 'carbon-addons-data-viz-react';
+// import 'carbon-addons-data-viz-react/sass/index.scss';
+
+
+
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmt1dGxhcjAwNDEiLCJhIjoiY2t5aWdja21zMmM0czJ2bjAyNDd1Y21nNSJ9.y3KGagGUhRXB5bdI8-7Dfw';
 
@@ -39,16 +44,19 @@ function App() {
       <Route path='/services' element={<ServicePage />} />
       <Route path='/signup' element={<SignUpPage />}/>
       <Route path='/country' element={<CountryPage />}/>
-      <Route path='/city' element={<CityPage />}/>;
+      <Route path='/city' element={<CityPage />}/>
+      <Route path='/chart' element={<ChartPage />}/>
       <Route path='/support' element={<SupportPage/>}/>
       <Route path='/forgot' element={<ForgotPage/>}/>
       <Route path='/logout' element={<LogoutPage/>}/>
+
      </Routes>
 
      
     </Router>
     {/* <Api/> */}
     {/* <div id="aboutmap"></div> */}
+    {/* <LineGraph/> */}
     </>
   );
 }

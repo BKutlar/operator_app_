@@ -25,6 +25,7 @@ const mongoose = require('mongoose')
 const User = require('./models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const busRouter = require('./routes/BUS')
 // const { schema } = require('./models/user.model')
 // const schema = new schema({name: String})
 
@@ -120,6 +121,8 @@ app.post('/api/quote', async (req, res)=>{
         res.json({status: "error", error: 'invalid token'})
     }
 })
+
+app.use(busRouter)
 
 app.listen(5000, ()=>{
     console.log('listening on port 5000')
