@@ -4,6 +4,7 @@ import * as IoIcons from 'react-icons/io';
 import * as AiIcons from 'react-icons/ai';
 import * as MdIcons from 'react-icons/md';
 import {FcLineChart} from 'react-icons/fc';
+import {BsFillCalendarDateFill} from 'react-icons/bs'
 
 
 export const SidebarData = [
@@ -42,5 +43,11 @@ export const SidebarData = [
         title: 'Charts',
         path: '/chart',
         icon: <FcLineChart/>
+    },
+
+    {
+        title: 'Calendar',
+        path:'/charging',
+        icon: <BsFillCalendarDateFill/>
     }
 ]

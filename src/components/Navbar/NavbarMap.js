@@ -1,6 +1,7 @@
 import React, { useEffect, Component, useState } from 'react'
 import mapboxgl from 'mapbox-gl';
 import axios from 'axios';
+// import MyCalendar from '../Calendar/Calendar';
 // import Aide from './aide';
 
 
@@ -402,6 +403,7 @@ export default function Map() {
           .setLngLat(e.lngLat)
           .setHTML(e.features[0].properties.name)
           .addTo(map);
+          
       });
       map.on('mouseenter', 'france', () => {
         map.getCanvas().style.cursor = 'pointer';
@@ -464,6 +466,7 @@ export default function Map() {
 
   })
 
+  
   return (
     <>
       <div id='heliosmap'></div>

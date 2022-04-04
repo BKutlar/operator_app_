@@ -18,6 +18,9 @@ import ChartPage from './pages/chart';
 import ForgotPage from './pages/forgot';
 import mapboxgl from 'mapbox-gl';
 import LogoutPage from './pages/deco';
+import CalendarPage from './pages/calendar';
+
+// import Calend from './components/Calendar/Calendar';
 // import { LineGraph } from 'carbon-addons-data-viz-react';
 // import 'carbon-addons-data-viz-react/sass/index.scss';
 
@@ -49,14 +52,17 @@ function App() {
       <Route path='/support' element={<SupportPage/>}/>
       <Route path='/forgot' element={<ForgotPage/>}/>
       <Route path='/logout' element={<LogoutPage/>}/>
+      {/* <Route path='/charging' element={<CalendarPage/>}/> */}
 
      </Routes>
 
      
     </Router>
+    {/* <Calend /> */}
     {/* <Api/> */}
     {/* <div id="aboutmap"></div> */}
     {/* <LineGraph/> */}
+    
     </>
   );
 }
