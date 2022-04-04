@@ -40,8 +40,8 @@ export default function Map() {
       const map = new mapboxgl.Map({
         container: 'heliosmap', // container ID
         style: 'mapbox://styles/mapbox/streets-v11', // style URL
-        center: [0, 20],// starting position [lng, lat]
-        zoom: 4,// starting zoom
+        center: [32.859741,39.933365],// starting position [lng, lat]
+        zoom: 5,// starting zoom
         hash: true,
         // baseApiUrl: 'https://api.electricitymap.org/v3/zones'
 
