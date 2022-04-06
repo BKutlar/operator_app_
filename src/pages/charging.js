@@ -3,6 +3,9 @@ import Charging from '../components/Fonction/Charging/Charging'
 import {BiArrowBack} from 'react-icons/bi';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import NavBarFleet from '../components/Fleet/NavBar';
+import Calendar from '../components/Fleet/Calendar';
+// import Flee from '../components/Fleet/Fleet'
 import MyCalendar from '../components/Calendar/Calendar';
 
 
@@ -24,7 +27,10 @@ const ChargingPage = () => {
     <>
     <Icon to='/'><BiArrowBack/></Icon>
     <Charging />
+    <NavBarFleet/>
+    <Calendar/>
     {/* <MyCalendar/> */}
+    {/* <Flee/> */}
     </>
   )
 }
