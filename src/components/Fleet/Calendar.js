@@ -27,19 +27,7 @@ function App() {
     
     return (
         <>
-        {/* <Datepicker
-        controls={['calendar','timegrid']}
-        select="range"
-        showOnClick={false}
-        showOnFocus={false}
-        isOpen={openPicker}
-        onClose={onClose}
-        onClick={show}
-        touchUi={false}
-        inputComponent="input"
-        inputProps={boxInputProps}
-    /> */}
-    {/* <Button onClick={show}>Show picker</Button> */}
+        
     <Datepicker
     controls={['calendar', 'timegrid']}
     select="range"
