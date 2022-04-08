@@ -1,12 +1,14 @@
 import React from 'react' ;
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
-
+import {BiArrowBack} from 'react-icons/bi'
+// import {BiArrowBack} from 'react-icons/bi'
+ 
 const Icon = styled(Link)`
     margin-left: 32px;
     margin-top: 32px;
     text-decoration: none;
-    color: #fff;
+    color: black;
     font-weight: 700;
     font-size: 32px;
 
@@ -19,7 +21,8 @@ const Icon = styled(Link)`
 const City = () =>{
     return (
         <>
-        <Icon to='/'>Helios</Icon>
+        {/* <Icon to='/'><BiArrowBack/></Icon> */}
+        <Icon to='/'><BiArrowBack/></Icon>
         <div>Hello</div>
         </>
     )

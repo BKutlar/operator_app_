@@ -191,12 +191,12 @@ import ReactDOM from "react-dom";
 import styled from "styled-components";
 // import "./style.css";
 import MultiMenus from "./MultiMenus";
-
+import TestCalendar from "./TestCalendar";
 const Wrapper = styled.aside`
   background: #ccc;
   width: 300px;
 `;
-
+const test = TestCalendar;
 const menus = [
     // {
     //     label: "Menu 1"
@@ -221,7 +221,9 @@ const menus = [
                     {
                         label: "Buses",
                         submenu: [
-                           { label: "A1"},
+                           { label: "A1",
+                            
+                        },
                            { label: "A2"},
                         ]
                     },
@@ -292,9 +294,19 @@ const menus = [
 ];
 
 export default function NavBarFleet() {
+    const [click, setClick] = React.useState(null);
+    const handleClick = (event) => {
+        setClick(event.current.Target);
+    }
     return (
+        <>
         <Wrapper>
-            <MultiMenus menus={menus} />
+            <MultiMenus menus={menus} onClick={handleClick} input={test}>
+                {/* <TestCalendar/> */}
+            </MultiMenus>
+            
         </Wrapper>
+        
+        </>
     )
 }

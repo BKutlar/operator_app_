@@ -20,43 +20,7 @@ import {BiArrowBack} from 'react-icons/bi'
 
 
 const SignUp = () => {
-// function SignUp() {
-// class SignUp extends Component {
-    // constructor() {
-    //     super()
-    //     this.state = {
-    //         email: '',
-    //         password: '',
-    //     }
 
-    //     this.changeEmail = this.changeEmail.bind(this)
-    //     this.changePassword = this.changePassword.bind(this)
-    //     this.onSubmit = this.onSubmit.bind(this)
-    // }
-    // changeEmail(event) {
-    //     this.setState({ email: event.target.value })
-    // }
-
-    // changePassword(event) {
-    //     this.setState({ password: event.target.value })
-    // }
-
-    // onSubmit(event) {
-    //     event.preventDefault()
-
-    //     const registered = {
-    //         email: this.state.email,
-    //         password: this.state.password
-    //     }
-
-    //     axios.post('http://localhost:5000/app/signup', registered)
-    //         .then(response => console.log(response.data))
-
-    //     this.setState({
-    //         email: '',
-    //         password: '',
-    //     })
-    // }
     const history = useNavigate()
 
     const [name, setName] = useState('')
