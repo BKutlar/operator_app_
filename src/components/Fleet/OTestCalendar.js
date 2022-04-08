@@ -264,22 +264,24 @@ function OTestCalendar() {
                             </Datepicker> */}
 
                             <Datepicker // theme='ios'
-                                controls={['calendar', 'timegrid']}
+                                controls={['calendar']}
                                 select="range"
                                 display="inline"
-                                touchUi={true}
+                                touchUi={false}
                                 locale={localeFr}
-                                dateFormat="DDD D MMM, YYYY"
-                                timeForma="H:mm"
-                                dateWheels="|DDD D MMM, YYYY|"
+                                dateFormat="DD/MM/YYYY"
+                                // timeForma="H:mm"
+                                // dateWheels="|DDD D MMM, YYYY|"
                                 inputComponent="input"
                                 inputProps="input"
                                 showOnClick={false}
                                 showOnFocus={false}
                                 value={selectedDate}
                                 onChange={onDateChange}
-                                    
-                                
+                                showRangeLabels={false}
+
+                                startInput={start}
+                                endInput={end}
                                 />
   
     
