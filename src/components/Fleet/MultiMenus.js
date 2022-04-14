@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
+import TestCalendar from "./TestCalendar";
 const UL = styled.ul`
   list-style: none;
   margin: 0;
@@ -48,10 +48,13 @@ const Arrow = styled.span`
 
 const MultiMenus = ({ menus }) => {
   const [activeMenus, setActiveMenus] = useState([]);
-
+  
   const handleMenuClick = data => {
     console.log(data);
   };
+  const handleCalendarClick = menuName => {
+    console.log(menuName);
+  }
 
   const handleArrowClick = menuName => {
     let newActiveMenus = [...activeMenus];
@@ -72,11 +75,23 @@ const MultiMenus = ({ menus }) => {
     <LI>
       <Item dept={dept}>
         <Label onClick={() => handleMenuClick(data)}>{data.label} </Label>
+        {/* <Label onClick={()=>handleMenuClick(data.submenu)}><TestCalendar/></Label> */}
+        
+        {/* <TestCalendar onClick={()=>handleCalendarClick(data)}>{data.submenu.label}</TestCalendar> */}
         {hasSubMenu && (
+          <>
           <Arrow
             onClick={() => handleArrowClick(menuName)}
             toggle={activeMenus.includes(menuName)}
-          />
+          ></Arrow>
+          
+          </>
+        )}
+        {!hasSubMenu && (
+          
+          <TestCalendar/>
+          
+          
         )}
       </Item>
       {hasSubMenu && (
@@ -85,7 +100,8 @@ const MultiMenus = ({ menus }) => {
           data={data.submenu}
           toggle={activeMenus.includes(menuName)}
           menuIndex={menuIndex}
-        />
+        //  onClick={()=>handleArrowClick({menuName})}
+        ></SubMenu>
       )}
     </LI>
   );
@@ -110,7 +126,8 @@ const MultiMenus = ({ menus }) => {
               menuName={menuName}
               key={menuName}
               menuIndex={index}
-            />
+              onClick={()=>handleMenuClick(data)}>{data.submenu} </ListMenu>
+            
           );
         })}
       </UL>

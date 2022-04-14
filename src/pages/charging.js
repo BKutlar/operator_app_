@@ -7,6 +7,8 @@ import NavBarFleet from '../components/Fleet/NavBar';
 import Calendar from '../components/Fleet/Calendar';
 import TestCalendar from '../components/Fleet/TestCalendar';
 import OTestCalendar from '../components/Fleet/OTestCalendar';
+import NewCalendar from '../components/Fleet/NewCalendar';
+import Clock from '../components/Fleet/Clock';
 // import TestButton from '../components/Fleet/TestButton';
 // import Flee from '../components/Fleet/Fleet'
 // import MyCalendar from '../components/Calendar/Calendar';
@@ -29,11 +31,15 @@ const ChargingPage = () => {
   return (
     <>
     <Icon to='/'><BiArrowBack/></Icon>
-    {/* <Charging /> */}
+    <Charging />
     <NavBarFleet/>
-    <Calendar/>
-    <TestCalendar/>
-    <OTestCalendar/>
+    
+    {/* <TestCalendar/> */}
+    {/* <Calendar/> */}
+    {/* <NewCalendar/> */}
+
+    {/* <Clock /> */}
+    {/* <OTestCalendar/> */}
     {/* <TestButton/> */}
     {/* <MyCalendar/> */}
     {/* <Flee/> */}

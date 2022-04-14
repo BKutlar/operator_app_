@@ -26,6 +26,12 @@ const User = require('./models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const busRouter = require('./routes/BUS')
+const chargingpointRouter = require('./routes/chargingPoint');
+const fleetRouter = require('./routes/Fleet');
+const chargingStationsRouter = require('./routes/ChargingStations');
+const bookingRouter = require('./routes/Booking');
+const planningRouter = require('./routes/Planning');
+const evRouter = require('./routes/ElectricVehicles');
 // const { schema } = require('./models/user.model')
 // const schema = new schema({name: String})
 
@@ -38,21 +44,21 @@ app.use(express.json())
 //     return !emailCount
 // }, "Email already exists")
 
-mongoose.connect('mongodb+srv://Brayan:Brayan_0401@cluster0.8jjav.mongodb.net/users_table?retryWrites=true&w=majority', ()=>console.log('Database Connected'));
+mongoose.connect('mongodb+srv://Brayan:Brayan_0401@cluster0.8jjav.mongodb.net/users_table?retryWrites=true&w=majority', () => console.log('Database Connected'));
 
 app.post('/api/register', async (req, res) => {
     console.log(req.body)
-    try{
+    try {
         const newPassword = await bcrypt.hash(req.body.password, 10)
-        
+
         await User.create({
             name: req.body.name,
             email: req.body.email,
             password: newPassword,
         })
-        res.json({status:'ok'})
+        res.json({ status: 'ok' })
     } catch (err) {
-        res.json({status: 'error', error:'Duplicate email'})
+        res.json({ status: 'error', error: 'Duplicate email' })
         console.log(err)
     }
 
@@ -65,8 +71,8 @@ app.post('/api/login', async (req, res) => {
     const user = await User.findOne({
         email: req.body.email,
     })
-    if(!user) {
-        return {status: 'error', error: 'Invalid login'}
+    if (!user) {
+        return { status: 'error', error: 'Invalid login' }
     }
 
     const isPasswordValid = await bcrypt.compare(
@@ -74,18 +80,18 @@ app.post('/api/login', async (req, res) => {
         user.password
     )
 
-    if(isPasswordValid) {
+    if (isPasswordValid) {
         const token = jwt.sign(
             {
                 name: user.name,
                 email: user.email
-            }, 
+            },
             'secret123'
         )
 
-        return res.json({status:'ok', user: token})
+        return res.json({ status: 'ok', user: token })
     } else {
-        return res.json({status:'error', user:false})
+        return res.json({ status: 'error', user: false })
     }
 })
 
@@ -95,35 +101,41 @@ app.get('/api/quote', async (req, res) => {
     try {
         const decoded = jwt.verify(token, 'secret123')
         const email = decoded.email
-        const user  = await User.findOne({email: email})
+        const user = await User.findOne({ email: email })
 
-        return res.json({status:'ok', quote: user.quote})
+        return res.json({ status: 'ok', quote: user.quote })
     } catch (error) {
-            console.log(error)
-            res.json({status:'error', error: 'invalid token'})
+        console.log(error)
+        res.json({ status: 'error', error: 'invalid token' })
     }
 })
 
-app.post('/api/quote', async (req, res)=>{
+app.post('/api/quote', async (req, res) => {
     const token = req.headers['x-access-token'];
 
     try {
         const decoded = jwt.verify(token, 'secret123')
         const email = decoded.email
         await User.updateOne(
-            {email: email},
-            {$set: {quote: req.body.quote}},
-        )    
+            { email: email },
+            { $set: { quote: req.body.quote } },
+        )
 
-        return res.json({status:'ok'})
-    } catch(error) {
+        return res.json({ status: 'ok' })
+    } catch (error) {
         console.log(error)
-        res.json({status: "error", error: 'invalid token'})
+        res.json({ status: "error", error: 'invalid token' })
     }
 })
 
-app.use(busRouter)
+app.use(busRouter);
+app.use(chargingpointRouter);
+app.use(fleetRouter);
+app.use(chargingStationsRouter);
+app.use(bookingRouter);
+app.use(planningRouter);
+app.use(evRouter);
 
-app.listen(5000, ()=>{
+app.listen(5000, () => {
     console.log('listening on port 5000')
 })
