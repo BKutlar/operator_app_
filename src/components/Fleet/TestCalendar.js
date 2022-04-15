@@ -2,7 +2,7 @@ import React from 'react';
 import {DateRangePicker} from 'rsuite';
 import  'rsuite/dist/rsuite.min.css' ; 
 import { startOfDay, endOfDay, addDays, subDays } from 'date-fns';
-function App() {
+function TestCalendar(props) {
     const {
         allowedDays,
         allowedRange,
@@ -15,7 +15,7 @@ return (
     <div className="field">
     {/* <p>Date Time Range</p> */}
     {/* <DateRangePicker size="lg" placeholder="Please Select..." style={styles} format="EEE dd-MM-yyyy HH:mm:ss" /> */}
-    <DateRangePicker placeholder="Please Select..."  style={styles} format="EEE dd-MM-yy HH:mm:ss"    //disabledDate={ beforeToday()}
+    <DateRangePicker {...props} name="test" placeholder="Please Select..."  style={styles} format="EEE dd-MM-yy HH:mm:ss"    //disabledDate={ beforeToday()}
       ranges={[
         {
           label: 'Yesterday',
@@ -45,4 +45,4 @@ return (
     </>
 )                                                                                                               
 }
-export default App;
+export default TestCalendar;

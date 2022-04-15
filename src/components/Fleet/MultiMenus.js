@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Form from "./Form";
 import TestCalendar from "./TestCalendar";
+import Popup from 'reactjs-popup';
+import "./Navbar.css";
+import {Link } from 'react-router-dom';
+// import 'reactjs-popup/dist/index.css'
 const UL = styled.ul`
   list-style: none;
   margin: 0;
@@ -88,9 +93,12 @@ const MultiMenus = ({ menus }) => {
           </>
         )}
         {!hasSubMenu && (
-          
-          <TestCalendar/>
-          
+          <>
+          {/* <TestCalendar/> */}
+          <Popup trigger={ <Link to="/reservation" className='btn'>Reservation</Link>} positon="right center">
+            <Form/>
+          </Popup>
+          </>
           
         )}
       </Item>

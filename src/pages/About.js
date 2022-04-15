@@ -3,6 +3,7 @@ import About from '../components/Fonction/About/About';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {BiArrowBack} from 'react-icons/bi';
+import Form from '../components/Fleet/Form';
 const Icon = styled(Link)`
 margin-left: 32px;
 margin-top: 32px;
@@ -24,7 +25,7 @@ const AboutPage = () => {
     <>
 <Icon to='/'><BiArrowBack/></Icon>
     <About />
-    
+    <Form/>
     </>
   )
 }

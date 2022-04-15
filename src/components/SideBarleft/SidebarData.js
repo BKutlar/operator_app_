@@ -3,6 +3,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as IoIcons from 'react-icons/io';
 import * as AiIcons from 'react-icons/ai';
 import * as MdIcons from 'react-icons/md';
+import {HiDocument} from 'react-icons/hi';
 import {FcLineChart} from 'react-icons/fc';
 import {BsFillCalendarDateFill} from 'react-icons/bs'
 
@@ -49,5 +50,11 @@ export const SidebarData = [
         title: 'Calendar',
         path:'/charging',
         icon: <BsFillCalendarDateFill/>
+    },
+
+    {
+        title: 'Reservation',
+        path: '/reservation',
+        icon: <HiDocument/>
     }
 ]
