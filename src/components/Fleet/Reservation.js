@@ -36,7 +36,7 @@ const Reservation = () => {
   return (
       <>
       <Icon to='/charging'><BiArrowBack/></Icon>
-      <Home to='/'><AiFillHome/></Home>
+      {/* <Home to='/'><AiFillHome/></Home> */}
       <Form/>
       </>
   )

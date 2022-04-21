@@ -73,12 +73,12 @@ const Form = () => {
 
         event.preventDefault();
 
-        
+
         let startDate = new Date(event.target.startDate.value);
         startDate.setHours(time.startHour);
         startDate.setMinutes(time.startMinute);
         // startDate = startDate.getUTCDate();
-        
+
         let endDate = new Date(event.target.endDate.value);
         endDate.setHours(time.endHour);
         endDate.setMinutes(time.endMinute);
@@ -116,6 +116,44 @@ const Form = () => {
         setFocused(focused);
     };
     const onSubmit = (data) => alert(JSON.stringify(data));
+
+    const [selected, setSelected] = React.useState('');
+
+    const changeSelectOptionHandler = (event) => {
+        setSelected(event.target.value);
+    };
+
+    const stationsP3 = [
+        "BK",
+    ];
+
+    const stationsP1 = [
+        "MK"
+    ];
+
+    const station = [
+        "--Select---",
+        "BK",
+        "MK"
+    ]
+    let type = null;
+
+    let options = null;
+
+    if (selected === '3€') {
+        type = stationsP3;
+    }
+    else if (selected === '1€') {
+        type = stationsP1;
+    }
+
+    else if (selected === 'Select') {
+        type = station
+    }
+
+    if (type) {
+        options = type.map((el) => <option key={el}>{el}</option>);
+    }
     return (
 
         <React.Fragment>
@@ -271,6 +309,24 @@ const Form = () => {
                                                 <option value="1€">1€</option>
                                                 <option value="3€">3€</option>
                                             </select>
+
+                                            {/* <div>
+                                                <select onChange={changeSelectOptionHandler}
+                                                >
+                                                    <option>Choose</option>
+                                                    <option>3€</option>
+                                                    <option>1€</option>
+                                                    <option>Select</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <select>
+                                                    {
+                                                        /** This is where we have used our options variable */
+                                                        options
+                                                    }
+                                                {/* </select> */}
+                                            {/* </div>  */}
                                         </div>
                                         <div>{errors.prices && <span className="text-sm text-red-500">{errors.prices.message}</span>}</div>
                                     </div>
@@ -287,91 +343,7 @@ const Form = () => {
                                                     <p className="font-bold text-xl uppercase">
                                                         date
                                                     </p>
-                                                    {/* <input
-                                                        type="datetime-local"
-                                                        // min="2022-04-20T08:30"
-                                                        // isDayBlocked={true}
-                                                        // timeFormat={false}
-                                                        isValidDate={disableWeekdays}
-                                                        className={`w-full h-16 text-2xl rounded-lg ${errors.departureDate &&
-                                                            " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
-                                                        {...register("startDate", {
-                                                            required: {
-                                                                value: true,
-                                                                message: "Departure date is required",
-                                                            },
-                                                        })}
-                                                        
-                                                    /> */}
-
-                                                    {/* <DateRangePicker
-                                                        startDate={startDate}
-                                                        startDateId="start-date"
-                                                        // endDate={endDate}
-                                                        // endDateId="end-date"
-                                                        onDatesChange={({ startDate }) => {
-                                                            setStartDate(startDate);
-                                                            // setEndDate(endDate);
-                                                        }}
-                                                        focusedInput={focusedInput}
-                                                        onFocusChange={(focusedInput) => setFocusedInput(focusedInput)}
-                                                        className={`w-full h-16 text-2xl rounded-lg ${errors.departureDate &&
-                                                            " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
-                                                        {...register("startDate", {
-                                                            required: {
-                                                                value: true,
-                                                                message: "Departure date is required",
-                                                            },
-                                                        })}
-                                                    /> */}
-
-                                                    {/* <SingleDatePicker
-                                                    // showClearDate={true}
-                                                    // showDefaultInputIcon={true}
-                                                    // displayFormat="YYYY-MM-DD"
-
-                                                    // className={`w-full h-16 text-2xl rounded-lg ${errors.departureDate &&
-                                                    //     " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
-                                                    // {...register("startDate", {
-                                                    //     required: {
-                                                    //         value: true,
-                                                    //         message: "Departure date is required",
-                                                    //     },
-                                                    // })}
-                                                    /> */}
-
-                                                    {/* <SingleDatePicker
-                                                        date={dob}
-                                                        // {...input}
-                                                        onOutsideClick={true}
-                                                        numberOfMonths={1}
-                                                        onDateChange={setDate}
-                                                        focused={focused}
-                                                        onFocusChange={setFocused}
-                                                        id="dob"
-                                                        className={`w-full h-16 text-2xl rounded-lg ${errors.departureDate &&
-                                                            " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
-                                                        {...register("startDate", {
-                                                            required: {
-                                                                value: true,
-                                                                message: "Departure date is required",
-                                                            },
-                                                        })}
-                                                    /> */}
-
-                                                    {/* <DateRangePicker
-                                                        startDateId="startDate"
-                                                        endDateId="endDate"
-                                                        startDate={this.state.startDate}
-                                                        endDate={this.state.endDate}
-                                                        onDatesChange={({ startDate, endDate }) => { this.setState({ startDate, endDate }) }}
-                                                        focusedInput={this.state.focusedInput}
-                                                        // isDayBlocked={onlyFridays}
-                                                        hideKeyboardShortcutsPanel
-                                                        // isOutsideRange={(day) => day.isAfter(moment()) || day.isBefore(moment().subtract(30, 'days'))} Past Date selection
-
-                                                        onFocusChange={(focusedInput) => { this.setState({ focusedInput }) }}
-                                                    /> */}
+                                                    
                                                     <FormCalendar
                                                         // type="dateTime"
                                                         className={`w-full h-16 text-2xl rounded-lg ${errors.departureDate &&
