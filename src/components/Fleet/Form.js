@@ -1,21 +1,129 @@
 import React, { useState } from 'react';
 import TestCalendar from '../Fleet/TestCalendar';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
+
+import "react-dates/initialize";
+import "react-dates/lib/css/_datepicker.css";
+import { DateRangePicker, SingleDatePicker } from "react-dates";
+import FormCalendar from './FormCalendar';
+import { Timeit } from "react-timeit";
+import SettingInitialDateAndTimeValues from './FormTime';
+// import TimePicker from './FormTime';
+// import "react-timeit/dist/index.css";
+
 
 const Form = () => {
-    const [state, setState] = useState(null);
-    let startDate;
-    //handle event 
+
+    // const CreateGroupEvent = (props) => {
+    //     const [dob, setDob] = useState(null);
+    //     const [focused, setFocused] = useState(false);
+    //     const setDate = (date) => {
+    //       setDob(date);
+    //       setFocused(false);
+    //     };
+    // const [time, setTime] = useState();
+    const [dob, setDob] = useState(null);
+    const [dob2, setDob2] = useState(null);
+    const [focused, setFocused] = useState(false);
+    const [focused2, setFocused2] = useState(false);
+    const setDate = (date) => {
+        setDob(date);
+        setFocused(false);
+    };
+    const setDate2 = (date) => {
+        setDob2(date);
+        setFocused2(false);
+    }
+
+    const time = {
+        startHour: '',
+        startMinute: '',
+        endHour: '',
+        endMinute: '',
+
+    }
+
+    function onStartChange([hour, minute]) {
+        time.startHour = hour;
+        time.startMinute = minute;
+    }
+
+    function onEndChange([hour, minute]) {
+        time.endHour = hour;
+        time.endMinute = minute;
+    }
+
+    const [startDate, setStartDate] = React.useState();
+    const [endDate, setEndDate] = React.useState();
+    const [focusedInput, setFocusedInput] = React.useState();
+
+    //disable weekends 
+    const disableWeekdays = current => {
+        return current.day() !== 0 && current.day() !== 6;
+    }
+
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-    //handle submit
-    const onSubmit = data => alert(JSON.stringify(data));
+
+
+
+    async function Test(event) {
+
+        event.preventDefault();
+
+        
+        let startDate = new Date(event.target.startDate.value);
+        startDate.setHours(time.startHour);
+        startDate.setMinutes(time.startMinute);
+        // startDate = startDate.getUTCDate();
+        
+        let endDate = new Date(event.target.endDate.value);
+        endDate.setHours(time.endHour);
+        endDate.setMinutes(time.endMinute);
+        // endDate = endDate.getUTCDate();
+
+        const response = await fetch('http://localhost:5000/booking', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                typeOfCharging: event.target.Type.value,
+                chargingStation: event.target.stations.value,
+                price: event.target.prices.value,
+                startDate,
+                endDate,
+                // timestart: event.target.timestart.value,
+
+            }),
+        })
+        const data = await response.json()
+        console.log(data)
+        if (data.status === 'ok') {
+            // alert('Reserved')
+        } else {
+            alert('Reserved')
+
+        }
+    }
+
+    // const station = {
+    //     if(price === "1")
+    // }
+    const onFocusChange = ({ focused }) => {
+        setFocused(focused);
+    };
+    const onSubmit = (data) => alert(JSON.stringify(data));
     return (
+
         <React.Fragment>
             <section className="body">
                 <form /*onSubmit={(e) => {
-                    console.log(startDate, e.target.charging.value);
-                }} */onSubmit={handleSubmit(onSubmit)}>
+                    e.preventDefault();
+                    console.log( e.target.Type.value);
+                }} */onSubmit={Test} to='/'>
                     <div className="bg-white-300 w-auto h-auto pb-10 mt-5 mx-5 px-5 rounded-lg">
                         {/*header* section*/}
                         <div className="h-24 flex justify-center items-center shadow">
@@ -25,32 +133,54 @@ const Form = () => {
                         {/*body sections*/}
                         <div>
                             <div className="grid justify-center space-y-5 bg-white-300 pb-10">
-                                <div >
+                                <div>
                                     <div className="flex space-x-8 mt-5">
 
                                         <div className="flex items-center space-x-2">
-                                            <input type="radio" className={`w-6 h-6 ${errors.Type &&
-                                                "focus:border-red-500 focus:ring-red-500 border-red-500"}`} value="charging"{...register("Type", {
+                                            <input name="Type" type="radio" style={{ zIndex: 99999999 }} className={`w-6 h-6 ${errors.Type &&
+                                                "focus:border-red-500 focus:ring-red-500 border-red-500"}`} value="Slow"/*{...register("Type", {
                                                     required: {
                                                         value: true,
                                                         message: 'Type is required'
                                                     }
-                                                })} />
+                                                })} */
+                                            />
                                             <p className="text-xl font-bold uppercase">Slow</p>
                                         </div>
 
+                                        {/* <div className='flex items-center space-x-2'>
+                                            <input
+                                                name="Type"
+                                                type="radio"
+                                                className={`w-6 h-6 ${errors.Type && "focus:border-red-500 focus:ring-red-500 border-red-500"
+                                                    }`}
+                                                value='Fast'
+                                                // {...register('Type', {
+                                                //     required: {
+                                                //         value: true,
+                                                //         message: "Type is required"
+                                                //     },
+                                                // })}
+                                            />
+                                            <p className="text-xl font-bold uppercase">Fast</p>
+                                        </div> */}
+
+
+
                                         <div className='flex items-center space-x-2'>
                                             <input
+                                                name="Type"
+                                                style={{ zIndex: 99999999 }}
                                                 type="radio"
-                                                className={`w-6 h-6 ${errors.tripType && "focus:border-red-500 focus:ring-red-500 border-red-500"
+                                                className={`w-6 h-6 ${errors.Type && "focus:border-red-500 focus:ring-red-500 border-red-500"
                                                     }`}
                                                 value='Rapid'
-                                                {...register('tripType', {
-                                                    required: {
-                                                        value: true,
-                                                        message: 'Type il required'
-                                                    },
-                                                })}
+                                            // {...register('Type', {
+                                            //     required: {
+                                            //         value: true,
+                                            //         message: 'Type is required'
+                                            //     },
+                                            // })}
                                             />
 
                                             <p className="text-xl font-bold uppercase">Rapid</p>
@@ -59,31 +189,53 @@ const Form = () => {
 
                                         <div className='flex items-center space-x-2'>
                                             <input
-                                                type="radio"
-                                                className={`w-6 h-6 ${errors.tripType && "focus:border-red-500 focus:ring-red-500 border-red-500"
+                                                name="Type"
+                                                type="radio" style={{ zIndex: 99999999 }}
+                                                className={`w-6 h-6 ${errors.Type && "focus:border-red-500 focus:ring-red-500 border-red-500"
                                                     }`}
                                                 value='Fast'
-                                                {...register('tripType', {
-                                                    required: {
-                                                        value: true,
-                                                        message: "Type is required"
-                                                    }
-                                                })}
+                                            // {...register('Type', {
+                                            //     required: {
+                                            //         value: true,
+                                            //         message: "Type is required"
+                                            //     },
+                                            // })}
                                             />
                                             <p className="text-xl font-bold uppercase">Fast</p>
                                         </div>
+
+
+                                        <div className='flex items-center space-x-2'>
+                                            <input
+                                                name="Type"
+                                                style={{ zIndex: 99999999 }}
+                                                type="radio"
+                                                className={`w-6 h-6 ${errors.Type && "focus:border-red-500 focus:ring-red-500 border-red-500"
+                                                    }`}
+                                                value='Mobile Charger'
+                                            // {...register('Type', {
+                                            //     required: {
+                                            //         value: true,
+                                            //         message: 'Type is required'
+                                            //     },
+                                            // })}
+                                            />
+
+                                            <p className="text-xl font-bold uppercase">Mobile Charger</p>
+                                        </div>
+
 
 
                                     </div>
                                     <div>{errors.Type && <span className="text-sm text-red-500">{errors.Type.message}</span>}</div>
                                 </div>
 
-                                {/*departure section */}
+                                {/*start section */}
                                 <div>
                                     <div>
                                         <div className="relative">
                                             <p className="font-bold text-xl uppercase"> Search </p>
-                                            <select
+                                            <select defaultValue=""
                                                 className="w-auto h-auto rounded-lg text-xl pl-5"
                                                 {...register("stations", {
                                                     required: {
@@ -92,67 +244,235 @@ const Form = () => {
                                                     }
                                                 })}
                                             >
-                                                <option value="" selected disabled hidden>--Select Charging Stations--</option>
-                                                <option value="MHA">Midas Hotem Ankara</option>
-                                                <option value="BK">Başkent Kule</option>
+                                                <option value="" >--Select Charging Stations--</option>
+                                                <option value="Midas Hotem Ankara">Midas Hotem Ankara</option>
+                                                <option value="Başkent Kule">Başkent Kule</option>
                                             </select>
                                         </div>
                                         <div>{errors.stations && <span className="text-sm text-red-500">{errors.stations.message}</span>}</div>
                                     </div>
                                 </div>
 
-                                {/* price section */}
-                                <div className="w-full">
+
+                                <div>
                                     <div>
-                                        <div>
-                                            <p className="font-bold text-xl uppercase">price</p>
-                                            <select className="w-auto h-auto rounded-lg text-xl pl-5"
-                                                {...register('price', {
+                                        <div className="relative">
+                                            <p className="font-bold text-xl uppercase"> Price </p>
+                                            <select defaultValue=""
+                                                className="w-auto h-auto rounded-lg text-xl pl-5"
+                                                {...register("prices", {
                                                     required: {
                                                         value: true,
-                                                        message: 'Price is required'
+                                                        message: "Price is required"
                                                     }
                                                 })}
                                             >
-                                                <option>--All Prices--</option>
-                                                <option>1€</option>
-                                                <option>3€</option>
-                                                <option>5€</option>
+                                                <option value="" >--All Prices--</option>
+                                                <option value="1€">1€</option>
+                                                <option value="3€">3€</option>
                                             </select>
                                         </div>
-                                        {/* <div>{errors.start && <span className="text-sm text-red-500">{errors.start.message2}</span>}</div> */}
+                                        <div>{errors.prices && <span className="text-sm text-red-500">{errors.prices.message}</span>}</div>
                                     </div>
                                 </div>
 
-                                {/*date section */}
-                                <div className="flex space-x-2">
-                                    {/* start section */}
-                                    <div>
+
+                                <div>
+                                    {/* date section */}
+                                    <div className="flex space-x-2">
+                                        {/* departure section */}
                                         <div>
-                                            <div className="index">
-                                                <p className="font-bold text-xl uppercase"> start date </p>
-                                                <TestCalendar onChange={(v) => {
-                                                    setState(v);
-                                                }} className="w-auto h-auto rounded-lg text-2xl "
-                                                // {...register("start", {
-                                                //     required: {
-                                                //         value: true,
-                                                //         message: "Date is required",
-                                                //         // message2:"Price is required"
-                                                //     }
-                                                // })}
+                                            <div>
+                                                <div className="relative">
+                                                    <p className="font-bold text-xl uppercase">
+                                                        date
+                                                    </p>
+                                                    {/* <input
+                                                        type="datetime-local"
+                                                        // min="2022-04-20T08:30"
+                                                        // isDayBlocked={true}
+                                                        // timeFormat={false}
+                                                        isValidDate={disableWeekdays}
+                                                        className={`w-full h-16 text-2xl rounded-lg ${errors.departureDate &&
+                                                            " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+                                                        {...register("startDate", {
+                                                            required: {
+                                                                value: true,
+                                                                message: "Departure date is required",
+                                                            },
+                                                        })}
+                                                        
+                                                    /> */}
 
-                                                />
+                                                    {/* <DateRangePicker
+                                                        startDate={startDate}
+                                                        startDateId="start-date"
+                                                        // endDate={endDate}
+                                                        // endDateId="end-date"
+                                                        onDatesChange={({ startDate }) => {
+                                                            setStartDate(startDate);
+                                                            // setEndDate(endDate);
+                                                        }}
+                                                        focusedInput={focusedInput}
+                                                        onFocusChange={(focusedInput) => setFocusedInput(focusedInput)}
+                                                        className={`w-full h-16 text-2xl rounded-lg ${errors.departureDate &&
+                                                            " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+                                                        {...register("startDate", {
+                                                            required: {
+                                                                value: true,
+                                                                message: "Departure date is required",
+                                                            },
+                                                        })}
+                                                    /> */}
+
+                                                    {/* <SingleDatePicker
+                                                    // showClearDate={true}
+                                                    // showDefaultInputIcon={true}
+                                                    // displayFormat="YYYY-MM-DD"
+
+                                                    // className={`w-full h-16 text-2xl rounded-lg ${errors.departureDate &&
+                                                    //     " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+                                                    // {...register("startDate", {
+                                                    //     required: {
+                                                    //         value: true,
+                                                    //         message: "Departure date is required",
+                                                    //     },
+                                                    // })}
+                                                    /> */}
+
+                                                    {/* <SingleDatePicker
+                                                        date={dob}
+                                                        // {...input}
+                                                        onOutsideClick={true}
+                                                        numberOfMonths={1}
+                                                        onDateChange={setDate}
+                                                        focused={focused}
+                                                        onFocusChange={setFocused}
+                                                        id="dob"
+                                                        className={`w-full h-16 text-2xl rounded-lg ${errors.departureDate &&
+                                                            " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+                                                        {...register("startDate", {
+                                                            required: {
+                                                                value: true,
+                                                                message: "Departure date is required",
+                                                            },
+                                                        })}
+                                                    /> */}
+
+                                                    {/* <DateRangePicker
+                                                        startDateId="startDate"
+                                                        endDateId="endDate"
+                                                        startDate={this.state.startDate}
+                                                        endDate={this.state.endDate}
+                                                        onDatesChange={({ startDate, endDate }) => { this.setState({ startDate, endDate }) }}
+                                                        focusedInput={this.state.focusedInput}
+                                                        // isDayBlocked={onlyFridays}
+                                                        hideKeyboardShortcutsPanel
+                                                        // isOutsideRange={(day) => day.isAfter(moment()) || day.isBefore(moment().subtract(30, 'days'))} Past Date selection
+
+                                                        onFocusChange={(focusedInput) => { this.setState({ focusedInput }) }}
+                                                    /> */}
+                                                    <FormCalendar
+                                                        // type="dateTime"
+                                                        className={`w-full h-16 text-2xl rounded-lg ${errors.departureDate &&
+                                                            " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+                                                        {...register("startDate", {
+                                                            required: {
+                                                                value: true,
+                                                                message: "Departure date is required",
+                                                            },
+                                                        })}
+                                                    />
+
+                                                    {/* <Timeit  defaultValue='06:10'
+                                                    className={`w-full h-16 text-2xl rounded-lg ${errors.departureDate &&
+                                                        " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+                                                    {...register("timestart", {
+                                                        required: {
+                                                            value: true,
+                                                            message: "Departure date is required",
+                                                        },
+                                                    })} /> */}
+
+                                                    <SettingInitialDateAndTimeValues
+
+                                                        name="timestart"
+                                                        onDateChange={(time) => onStartChange(time)}
+
+                                                    />
+
+                                                    <SettingInitialDateAndTimeValues
+
+                                                        name="timestart"
+                                                        onDateChange={(time) => onEndChange(time)}
+
+                                                    />
+                                                </div>
+                                                <div>
+                                                    {errors.departureDate && (
+                                                        <span className="text-sm text-red-500">
+                                                            {errors.startDate.message}
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
-                                            {/* <div>{errors.start && <span className="text-sm text-red-500">{errors.start.message}</span>}</div> */}
                                         </div>
+
+                                        {/* return section */}
+                                        {/* <div>
+                                            <div>
+                                                <div className="relative">
+                                                    <p className="font-bold text-xl uppercase">
+                                                        end date
+                                                    </p>
+                                                    {/* <input
+                                                        type="datetime-local"
+                                                        className={`w-full h-16 text-2xl rounded-lg ${errors.returnDate &&
+                                                            " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+                                                        {...register("endDate", {
+                                                            required: {
+                                                                value: true,
+                                                                message: "Return date is required",
+                                                            },
+                                                        })}
+                                                    /> */}
+
+                                        {/* <SingleDatePicker
+                                                        date={dob2}
+                                                        // {...input}
+                                                        onOutsideClick={true}
+                                                        numberOfMonths={1}
+                                                        onDateChange={setDate2}
+                                                        focused={focused2}
+                                                        onFocusChange={setFocused2}
+                                                        id="dob2"
+                                                        className={`w-full h-16 text-2xl rounded-lg ${errors.returnDate &&
+                                                            " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+                                                        {...register("endDate", {
+                                                            // required: {
+                                                            //     value: true,
+                                                            //     message: "Return date is required",
+                                                            // },
+                                                        })}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    {errors.returnDate && (
+                                                        <span className="text-sm text-red-500">
+                                                            {errors.endDate.message}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div> */}
                                     </div>
                                 </div>
-                                <button type="submit" className="w-auto h-16 font-bold text-xl uppercase rounded-lg bg-green-400 hover:bg-green-200 items-center justify-center relative">Submit</button>
-
                             </div>
+                            <button type="submit" to='/' className="w-auto h-16 font-bold text-xl uppercase rounded-lg bg-green-400 hover:bg-green-200 items-center justify-center relative">Submit</button>
+
                         </div>
                     </div>
+                    {/* </div> */}
 
                 </form>
             </section>

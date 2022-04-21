@@ -7,6 +7,11 @@ router.post('/booking', async(request, response)=> {
 
         bookingId: request.body.bookingId,
         chargingPointId: request.body.chargingPointId,
+        chargingStation: request.body.chargingStation,
+        typeOfCharging: request.body.typeOfCharging,
+        price: request.body.price,
+        startDate: request.body.startDate,
+        endDate: request.body.endDate,
         payment: request.body.payment,
         timestart: request.body.timestart,
         timeoff: request.body.timeoff
