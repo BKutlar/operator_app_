@@ -1,0 +1,34 @@
+[
+    {
+      "price": "1€",
+  
+      "stations": [
+        {
+          "name": "BK"
+        }
+      ]
+    },
+    {
+      "price": "3€",
+  
+      "stations": [
+        {
+            "label": "MKB",
+          "name": "MKB"
+        }
+      ]
+    },
+  
+    {
+      "price": "All",
+      "stations": [
+        {
+          "name": "BK"
+        },
+        {
+          "name": "MKB"
+        }
+      ]
+    }
+  ]
+  

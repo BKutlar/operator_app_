@@ -1,29 +1,52 @@
-import React, { useState } from 'react';
-import TestCalendar from '../Fleet/TestCalendar';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
-
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
-import { DateRangePicker, SingleDatePicker } from "react-dates";
 import FormCalendar from './FormCalendar';
-import { Timeit } from "react-timeit";
 import SettingInitialDateAndTimeValues from './FormTime';
-// import TimePicker from './FormTime';
-// import "react-timeit/dist/index.css";
+import Select from "react-select";
+import data from "./data.json";
+
+
+let priceValues = '';
+let stationsValues = '';
 
 
 const Form = () => {
 
-    // const CreateGroupEvent = (props) => {
-    //     const [dob, setDob] = useState(null);
-    //     const [focused, setFocused] = useState(false);
-    //     const setDate = (date) => {
-    //       setDob(date);
-    //       setFocused(false);
-    //     };
-    // const [time, setTime] = useState();
+
+
+    const [price, setPrice] = useState(null);
+
+    const [stations, setStations] = useState(null);
+
+    const [stationsList, setStationsList] = useState([]);
+    const [link, setLink] = useState("");
+
+    // handle change event of the prices dropdown
+    const handlePriceChange = (obj) => {
+        
+        console.log(obj);
+        setPrice(obj);
+        
+        setStationsList(obj.stations);
+        // setLang(null);
+        setStations(null);
+        priceValues = obj.price
+
+
+
+    };
+
+    // handle change event of the stations dropdown
+    const handleStationChange = (obj) => {
+       
+        setStations(obj);
+        stationsValues = obj.name
+    }
+
+  
+
     const [dob, setDob] = useState(null);
     const [dob2, setDob2] = useState(null);
     const [focused, setFocused] = useState(false);
@@ -83,6 +106,8 @@ const Form = () => {
         endDate.setHours(time.endHour);
         endDate.setMinutes(time.endMinute);
         // endDate = endDate.getUTCDate();
+        console.log(priceValues);
+        console.log(stationsValues);
 
         const response = await fetch('http://localhost:5000/booking', {
             method: 'POST',
@@ -91,8 +116,8 @@ const Form = () => {
             },
             body: JSON.stringify({
                 typeOfCharging: event.target.Type.value,
-                chargingStation: event.target.stations.value,
-                price: event.target.prices.value,
+                chargingStation: stationsValues,
+                price: priceValues,
                 startDate,
                 endDate,
                 // timestart: event.target.timestart.value,
@@ -107,11 +132,10 @@ const Form = () => {
             alert('Reserved')
 
         }
+
     }
 
-    // const station = {
-    //     if(price === "1")
-    // }
+
     const onFocusChange = ({ focused }) => {
         setFocused(focused);
     };
@@ -119,41 +143,7 @@ const Form = () => {
 
     const [selected, setSelected] = React.useState('');
 
-    const changeSelectOptionHandler = (event) => {
-        setSelected(event.target.value);
-    };
 
-    const stationsP3 = [
-        "BK",
-    ];
-
-    const stationsP1 = [
-        "MK"
-    ];
-
-    const station = [
-        "--Select---",
-        "BK",
-        "MK"
-    ]
-    let type = null;
-
-    let options = null;
-
-    if (selected === '3€') {
-        type = stationsP3;
-    }
-    else if (selected === '1€') {
-        type = stationsP1;
-    }
-
-    else if (selected === 'Select') {
-        type = station
-    }
-
-    if (type) {
-        options = type.map((el) => <option key={el}>{el}</option>);
-    }
     return (
 
         <React.Fragment>
@@ -186,22 +176,7 @@ const Form = () => {
                                             <p className="text-xl font-bold uppercase">Slow</p>
                                         </div>
 
-                                        {/* <div className='flex items-center space-x-2'>
-                                            <input
-                                                name="Type"
-                                                type="radio"
-                                                className={`w-6 h-6 ${errors.Type && "focus:border-red-500 focus:ring-red-500 border-red-500"
-                                                    }`}
-                                                value='Fast'
-                                                // {...register('Type', {
-                                                //     required: {
-                                                //         value: true,
-                                                //         message: "Type is required"
-                                                //     },
-                                                // })}
-                                            />
-                                            <p className="text-xl font-bold uppercase">Fast</p>
-                                        </div> */}
+
 
 
 
@@ -213,12 +188,7 @@ const Form = () => {
                                                 className={`w-6 h-6 ${errors.Type && "focus:border-red-500 focus:ring-red-500 border-red-500"
                                                     }`}
                                                 value='Rapid'
-                                            // {...register('Type', {
-                                            //     required: {
-                                            //         value: true,
-                                            //         message: 'Type is required'
-                                            //     },
-                                            // })}
+
                                             />
 
                                             <p className="text-xl font-bold uppercase">Rapid</p>
@@ -232,12 +202,7 @@ const Form = () => {
                                                 className={`w-6 h-6 ${errors.Type && "focus:border-red-500 focus:ring-red-500 border-red-500"
                                                     }`}
                                                 value='Fast'
-                                            // {...register('Type', {
-                                            //     required: {
-                                            //         value: true,
-                                            //         message: "Type is required"
-                                            //     },
-                                            // })}
+
                                             />
                                             <p className="text-xl font-bold uppercase">Fast</p>
                                         </div>
@@ -251,12 +216,7 @@ const Form = () => {
                                                 className={`w-6 h-6 ${errors.Type && "focus:border-red-500 focus:ring-red-500 border-red-500"
                                                     }`}
                                                 value='Mobile Charger'
-                                            // {...register('Type', {
-                                            //     required: {
-                                            //         value: true,
-                                            //         message: 'Type is required'
-                                            //     },
-                                            // })}
+
                                             />
 
                                             <p className="text-xl font-bold uppercase">Mobile Charger</p>
@@ -273,19 +233,17 @@ const Form = () => {
                                     <div>
                                         <div className="relative">
                                             <p className="font-bold text-xl uppercase"> Search </p>
-                                            <select defaultValue=""
-                                                className="w-auto h-auto rounded-lg text-xl pl-5"
-                                                {...register("stations", {
-                                                    required: {
-                                                        value: true,
-                                                        message: "Stations is required"
-                                                    }
-                                                })}
+
+                                            <Select
+                                                name='stations'
+                                                placeholder="Select Stations"
+                                                value={stations}
+                                                options={stationsList}
+                                                onChange={handleStationChange}
+                                                getOptionLabel={(x) => x.name}
+                                                getOptionValue={(x) => x.code}
                                             >
-                                                <option value="" >--Select Charging Stations--</option>
-                                                <option value="Midas Hotem Ankara">Midas Hotem Ankara</option>
-                                                <option value="Başkent Kule">Başkent Kule</option>
-                                            </select>
+                                            </Select>
                                         </div>
                                         <div>{errors.stations && <span className="text-sm text-red-500">{errors.stations.message}</span>}</div>
                                     </div>
@@ -296,37 +254,19 @@ const Form = () => {
                                     <div>
                                         <div className="relative">
                                             <p className="font-bold text-xl uppercase"> Price </p>
-                                            <select defaultValue=""
-                                                className="w-auto h-auto rounded-lg text-xl pl-5"
-                                                {...register("prices", {
-                                                    required: {
-                                                        value: true,
-                                                        message: "Price is required"
-                                                    }
-                                                })}
-                                            >
-                                                <option value="" >--All Prices--</option>
-                                                <option value="1€">1€</option>
-                                                <option value="3€">3€</option>
-                                            </select>
 
-                                            {/* <div>
-                                                <select onChange={changeSelectOptionHandler}
-                                                >
-                                                    <option>Choose</option>
-                                                    <option>3€</option>
-                                                    <option>1€</option>
-                                                    <option>Select</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <select>
-                                                    {
-                                                        /** This is where we have used our options variable */
-                                                        options
-                                                    }
-                                                {/* </select> */}
-                                            {/* </div>  */}
+
+                                            <Select
+                                                name='prices'
+                                                placeholder="Select Price"
+                                                value={price}
+                                                options={data}
+                                                onChange={handlePriceChange}
+                                                getOptionLabel={(x) => x.price}
+                                                getOptionValue={(x) => x.country_code}
+                                            />
+
+
                                         </div>
                                         <div>{errors.prices && <span className="text-sm text-red-500">{errors.prices.message}</span>}</div>
                                     </div>
@@ -343,7 +283,7 @@ const Form = () => {
                                                     <p className="font-bold text-xl uppercase">
                                                         date
                                                     </p>
-                                                    
+
                                                     <FormCalendar
                                                         // type="dateTime"
                                                         className={`w-full h-16 text-2xl rounded-lg ${errors.departureDate &&
@@ -356,15 +296,7 @@ const Form = () => {
                                                         })}
                                                     />
 
-                                                    {/* <Timeit  defaultValue='06:10'
-                                                    className={`w-full h-16 text-2xl rounded-lg ${errors.departureDate &&
-                                                        " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
-                                                    {...register("timestart", {
-                                                        required: {
-                                                            value: true,
-                                                            message: "Departure date is required",
-                                                        },
-                                                    })} /> */}
+
 
                                                     <SettingInitialDateAndTimeValues
 
@@ -390,53 +322,7 @@ const Form = () => {
                                             </div>
                                         </div>
 
-                                        {/* return section */}
-                                        {/* <div>
-                                            <div>
-                                                <div className="relative">
-                                                    <p className="font-bold text-xl uppercase">
-                                                        end date
-                                                    </p>
-                                                    {/* <input
-                                                        type="datetime-local"
-                                                        className={`w-full h-16 text-2xl rounded-lg ${errors.returnDate &&
-                                                            " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
-                                                        {...register("endDate", {
-                                                            required: {
-                                                                value: true,
-                                                                message: "Return date is required",
-                                                            },
-                                                        })}
-                                                    /> */}
 
-                                        {/* <SingleDatePicker
-                                                        date={dob2}
-                                                        // {...input}
-                                                        onOutsideClick={true}
-                                                        numberOfMonths={1}
-                                                        onDateChange={setDate2}
-                                                        focused={focused2}
-                                                        onFocusChange={setFocused2}
-                                                        id="dob2"
-                                                        className={`w-full h-16 text-2xl rounded-lg ${errors.returnDate &&
-                                                            " focus:border-red-500 focus:ring-red-500 border-red-500"}`}
-                                                        {...register("endDate", {
-                                                            // required: {
-                                                            //     value: true,
-                                                            //     message: "Return date is required",
-                                                            // },
-                                                        })}
-                                                    />
-                                                </div>
-                                                <div>
-                                                    {errors.returnDate && (
-                                                        <span className="text-sm text-red-500">
-                                                            {errors.endDate.message}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div> */}
                                     </div>
                                 </div>
                             </div>
