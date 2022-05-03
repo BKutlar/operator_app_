@@ -44,7 +44,7 @@ app.use(express.json())
 //     return !emailCount
 // }, "Email already exists")
 
-mongoose.connect('mongodb+srv://Brayan:Brayan_0401@cluster0.8jjav.mongodb.net/users_table?retryWrites=true&w=majority', () => console.log('Database Connected'));
+mongoose.connect('mongodb+srv://Brayan:BraKut2021@cluster0.uxah4.mongodb.net/operator?retryWrites=true&w=majority', () => console.log('Database Connected'));
 
 app.post('/api/register', async (req, res) => {
     console.log(req.body)

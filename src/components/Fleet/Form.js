@@ -6,29 +6,31 @@ import FormCalendar from './FormCalendar';
 import SettingInitialDateAndTimeValues from './FormTime';
 import Select from "react-select";
 import data from "./data.json";
-
+import SelectFilter from '../CustomSelect/select';
+import fdata from './fdata.json';
 
 let priceValues = '';
 let stationsValues = '';
-
+let fleetValues = '';
 
 const Form = () => {
 
 
 
     const [price, setPrice] = useState(null);
-
+    const [fleet, setFleet] = useState(null);
     const [stations, setStations] = useState(null);
 
     const [stationsList, setStationsList] = useState([]);
+    const [fleetList, setFleetList] = useState([]);
     const [link, setLink] = useState("");
 
     // handle change event of the prices dropdown
     const handlePriceChange = (obj) => {
-        
+
         console.log(obj);
         setPrice(obj);
-        
+
         setStationsList(obj.stations);
         // setLang(null);
         setStations(null);
@@ -38,14 +40,21 @@ const Form = () => {
 
     };
 
+    const handleFleetChange = (obj) => {
+        console.log(obj);
+        setFleet(null);
+
+        setFleetList(null);
+        fleetValues = obj.name
+    };
     // handle change event of the stations dropdown
     const handleStationChange = (obj) => {
-       
+
         setStations(obj);
         stationsValues = obj.name
     }
 
-  
+
 
     const [dob, setDob] = useState(null);
     const [dob2, setDob2] = useState(null);
@@ -109,6 +118,7 @@ const Form = () => {
         console.log(priceValues);
         console.log(stationsValues);
 
+        //method fetch for to post 
         const response = await fetch('http://localhost:5000/booking', {
             method: 'POST',
             headers: {
@@ -120,6 +130,7 @@ const Form = () => {
                 price: priceValues,
                 startDate,
                 endDate,
+                fleet: event.target.fleets.value,
                 // timestart: event.target.timestart.value,
 
             }),
@@ -166,12 +177,7 @@ const Form = () => {
 
                                         <div className="flex items-center space-x-2">
                                             <input name="Type" type="radio" style={{ zIndex: 99999999 }} className={`w-6 h-6 ${errors.Type &&
-                                                "focus:border-red-500 focus:ring-red-500 border-red-500"}`} value="Slow"/*{...register("Type", {
-                                                    required: {
-                                                        value: true,
-                                                        message: 'Type is required'
-                                                    }
-                                                })} */
+                                                "focus:border-red-500 focus:ring-red-500 border-red-500"}`} value="Slow"
                                             />
                                             <p className="text-xl font-bold uppercase">Slow</p>
                                         </div>
@@ -228,28 +234,24 @@ const Form = () => {
                                     <div>{errors.Type && <span className="text-sm text-red-500">{errors.Type.message}</span>}</div>
                                 </div>
 
-                                {/*start section */}
+                                 {/* fleet option */}
                                 <div>
                                     <div>
                                         <div className="relative">
-                                            <p className="font-bold text-xl uppercase"> Search </p>
+                                            <p className="font-bold text-xl uppercase"> Fleet </p>
 
-                                            <Select
-                                                name='stations'
-                                                placeholder="Select Stations"
-                                                value={stations}
-                                                options={stationsList}
-                                                onChange={handleStationChange}
-                                                getOptionLabel={(x) => x.name}
-                                                getOptionValue={(x) => x.code}
-                                            >
-                                            </Select>
+                                           <select name="fleets" defaultValue = "">
+                                               <option value="">--Select Fleet--</option>
+                                               <option value="A6">A6</option>
+                                               <option value="A7">A7</option>
+                                           </select>
+                                          
                                         </div>
-                                        <div>{errors.stations && <span className="text-sm text-red-500">{errors.stations.message}</span>}</div>
+                                        <div>{errors.fleets && <span className="text-sm text-red-500">{errors.fleets.message}</span>}</div>
                                     </div>
                                 </div>
-
-
+                               
+                               {/* price section */}
                                 <div>
                                     <div>
                                         <div className="relative">
@@ -273,6 +275,30 @@ const Form = () => {
                                 </div>
 
 
+                                {/*start section */}
+                                <div>
+                                    <div>
+                                        <div className="relative">
+                                            <p className="font-bold text-xl uppercase"> Search </p>
+
+                                            <Select
+                                                name='stations'
+                                                placeholder="Select Stations"
+                                                value={stations}
+                                                options={stationsList}
+                                                onChange={handleStationChange}
+                                                getOptionLabel={(x) => x.name}
+                                                getOptionValue={(x) => x.code}
+                                            >
+                                            </Select>
+                                        </div>
+                                        <div>{errors.stations && <span className="text-sm text-red-500">{errors.stations.message}</span>}</div>
+                                    </div>
+                                </div>
+
+                                
+                                
+                                
                                 <div>
                                     {/* date section */}
                                     <div className="flex space-x-2">
@@ -326,6 +352,8 @@ const Form = () => {
                                     </div>
                                 </div>
                             </div>
+
+                            {/* Submit section */}
                             <button type="submit" to='/' className="w-auto h-16 font-bold text-xl uppercase rounded-lg bg-green-400 hover:bg-green-200 items-center justify-center relative">Submit</button>
 
                         </div>
@@ -334,7 +362,7 @@ const Form = () => {
 
                 </form>
             </section>
-        </React.Fragment>
+        </React.Fragment >
     )
 }
 

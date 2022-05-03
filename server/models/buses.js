@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 
-const Buses = new mongoose.Schema({
+const Vehicles = new mongoose.Schema({
     number : {type: String},
-    country: {type: String}, 
-    carbonIntensity: {type: Number},
+    // country: {type: String},  create new model country
+    // carbonIntensity: {type: Number},
     dailyCharging: {type: Number},
     emission: {type: Number},
-    fleet: {type: Number},
+    fleet: {type: String},
+    //add TypeOfVehicles TypeOfconnector capacity
+
 });
 
-module.exports = mongoose.model('Buses', Buses)
+module.exports = mongoose.model('Vehicles', Vehicles)

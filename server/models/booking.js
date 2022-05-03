@@ -10,7 +10,8 @@ const Booking = new mongoose.Schema({
     endDate: {type: String},
     payment: {type: Number},
     timestart: {type: Number},
-    timeend: {type: Number}
+    timeend: {type: Number},
+    fleet: {type: String}
 })
 
 module.exports = mongoose.model('Booking', Booking);

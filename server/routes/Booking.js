@@ -14,7 +14,8 @@ router.post('/booking', async(request, response)=> {
         endDate: request.body.endDate,
         payment: request.body.payment,
         timestart: request.body.timestart,
-        timeoff: request.body.timeoff
+        timeoff: request.body.timeoff,
+        fleet : request.body.fleet
     })
 
     Booking.save()

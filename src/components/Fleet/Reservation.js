@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {BiArrowBack} from 'react-icons/bi';
-import {AiFillHome} from 'react-icons/ai';
 import Form from './Form';
 
 const Icon = styled(Link)`
@@ -35,8 +34,7 @@ const Home = styled(Link)`
 const Reservation = () => {
   return (
       <>
-      <Icon to='/charging'><BiArrowBack/></Icon>
-      {/* <Home to='/'><AiFillHome/></Home> */}
+      <Icon to='/'><BiArrowBack/></Icon>
       <Form/>
       </>
   )
